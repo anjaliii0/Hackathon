@@ -1,0 +1,22 @@
+.page { padding: 32px 40px; max-width: 800px; margin: 0 auto; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; color: var(--navy); display: inline; margin-right: 10px; }
+.badge { font-size: 0.72rem; background: var(--steel); color: white; padding: 2px 8px; border-radius: 10px; vertical-align: middle; font-weight: 600; }
+.markAllBtn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--text-secondary); cursor: pointer; transition: var(--transition); font-family: var(--font-body); }
+.markAllBtn:hover { border-color: var(--steel); color: var(--steel); }
+.list { display: flex; flex-direction: column; gap: 8px; }
+.item { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: white; border: 1px solid var(--border-soft); border-radius: var(--radius-sm); transition: var(--transition); }
+.item:hover { box-shadow: var(--shadow-sm); }
+.unread { border-left: 3px solid var(--steel); background: color-mix(in srgb, var(--accent-light) 40%, white); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.unread .dot { background: var(--steel); }
+.body { flex: 1; }
+.text { font-size: 0.875rem; color: var(--text-primary); line-height: 1.45; }
+.time { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; display: block; }
+.actions { display: flex; gap: 6px; flex-shrink: 0; }
+.readBtn, .deleteBtn { width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 7px; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+.readBtn { color: var(--success); }
+.readBtn:hover { background: #edf7f1; }
+.deleteBtn { color: var(--text-muted); }
+.deleteBtn:hover { background: #fde8e8; color: var(--danger); border-color: var(--danger); }
+.empty { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 80px; color: var(--text-muted); font-style: italic; }
