@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, Trophy } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { authService } from '../../services/services';
+import { authService, homeService } from '../../services/services';
 import toast from 'react-hot-toast';
 import styles from './Auth.module.css';
+
+const money = (n) => !n ? '—' : n >= 100000 ? `₹${(n / 100000).toFixed(0)}L+` : n >= 1000 ? `₹${(n / 1000).toFixed(0)}K+` : `₹${n}`;
+const compact = (n) => !n ? '0' : n >= 1000 ? `${(n / 1000).toFixed(1)}K+` : `${n}+`;
 
 export default function Login() {
   const [form, setForm]     = useState({ email: '', password: '' });
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [stats, setStats]   = useState(null);
   const { login }  = useAuth();
   const navigate   = useNavigate();
+
+  // Real platform stats for the decorative panel
+  useEffect(() => {
+    homeService.getHomeData()
+      .then(res => setStats(res.data.data.stats))
+      .catch(() => {});
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,9 +51,9 @@ export default function Login() {
           <h1 className={styles.decorTitle}>HackPortal</h1>
           <p className={styles.decorSub}>Where ideas become innovations</p>
           <div className={styles.decorStats}>
-            <div className={styles.stat}><span>2,400+</span><p>Hackathons</p></div>
-            <div className={styles.stat}><span>18K+</span><p>Students</p></div>
-            <div className={styles.stat}><span>₹50L+</span><p>Prizes</p></div>
+            <div className={styles.stat}><span>{compact(stats?.hackathons)}</span><p>Hackathons</p></div>
+            <div className={styles.stat}><span>{compact(stats?.students)}</span><p>Students</p></div>
+            <div className={styles.stat}><span>{money(stats?.prizePool)}</span><p>Prizes</p></div>
           </div>
         </div>
       </div>

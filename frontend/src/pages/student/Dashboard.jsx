@@ -2,19 +2,24 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, Trophy, Users, ChevronRight, Bell, Zap, BookOpen, Loader2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { hackathonService } from '../../services/services';
+import { hackathonService, studentService } from '../../services/services';
 import styles from './Dashboard.module.css';
 
 export default function Dashboard() {
   const { user } = useAuth();
   const [hackathons, setHackathons] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
     hackathonService.getAll({ status: 'open', limit: 3 })
       .then(res => setHackathons(res.data.data.hackathons || []))
       .catch(() => {})
       .finally(() => setLoading(false));
+
+    studentService.getDashboard()
+      .then(res => setStats(res.data.data))
+      .catch(() => {});
   }, []);
 
   const modeColor = { online: '#6aaa8a', offline: '#c0706a', hybrid: '#d4a853' };
@@ -35,9 +40,9 @@ export default function Dashboard() {
 
       <div className={styles.statsRow}>
         {[
-          { icon: Trophy,   label: 'Registered', value: '—', color: 'var(--steel)' },
-          { icon: Users,    label: 'My Teams',   value: '—', color: 'var(--success)' },
-          { icon: BookOpen, label: 'Submissions', value: '—', color: 'var(--warning)' },
+          { icon: Trophy,   label: 'Registered', value: stats ? stats.registrations : '…', color: 'var(--steel)' },
+          { icon: Users,    label: 'My Teams',   value: stats ? stats.teams : '…', color: 'var(--success)' },
+          { icon: BookOpen, label: 'Submissions', value: stats ? stats.submissions : '…', color: 'var(--warning)' },
           { icon: Calendar, label: 'Open Now',
             value: loading ? '…' : hackathons.length, color: '#a06fa8' },
         ].map(({ icon: Icon, label, value, color }) => (

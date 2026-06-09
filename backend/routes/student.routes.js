@@ -6,7 +6,11 @@ const {
   updateProfile,
   uploadAvatar,
   uploadResume,
-  deleteAccount
+  deleteAccount,
+  getDashboard,
+  getBookmarks,
+  toggleBookmark,
+  getMyCertificates
 } = require('../controllers/student.controller');
 
 const protect   = require('../middlewares/auth.middleware');
@@ -19,6 +23,12 @@ router.use(protect, authorize('student'));
 // Profile
 router.get('/profile', getProfile);
 router.put('/profile', updateProfile);
+
+// Dashboard, bookmarks, certificates
+router.get('/dashboard', getDashboard);
+router.get('/bookmarks', getBookmarks);
+router.post('/bookmarks/:hackathonId', toggleBookmark);
+router.get('/certificates', getMyCertificates);
 
 // File uploads  → multer runs BEFORE controller
 router.put('/avatar', upload.single('avatar'), uploadAvatar);

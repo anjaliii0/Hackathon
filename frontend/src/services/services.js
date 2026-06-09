@@ -25,6 +25,11 @@ export const studentService = {
   updateProfile: (data)     => api.put('/student/profile', data),
   uploadAvatar:  (formData) => api.put('/student/avatar', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
   uploadResume:  (formData) => api.put('/student/resume',  formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+
+  getDashboard:   ()            => api.get('/student/dashboard'),
+  getBookmarks:   ()            => api.get('/student/bookmarks'),
+  toggleBookmark: (hackathonId) => api.post(`/student/bookmarks/${hackathonId}`),
+  getCertificates:()            => api.get('/student/certificates'),
 };
 
 // ─── Hackathons ────────────────────────────────────────

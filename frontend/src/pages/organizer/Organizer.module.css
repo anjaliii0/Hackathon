@@ -20,8 +20,12 @@
   font-weight: 600;
   color: var(--navy);
   letter-spacing: -0.02em;
+  background: var(--grad-navy);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.title em { font-style: italic; color: var(--steel); }
+.title em { font-style: italic; color: var(--steel); -webkit-text-fill-color: var(--steel); }
 
 .subtitle {
   color: var(--text-muted);
@@ -58,11 +62,11 @@
 .btn:hover { background: var(--bg-hover); color: var(--navy); border-color: var(--steel); }
 
 .btnPrimary {
-  background: var(--navy);
+  background: var(--grad-navy);
   color: white;
-  border-color: var(--navy);
+  border-color: transparent;
 }
-.btnPrimary:hover { background: var(--steel); border-color: var(--steel); color: white; transform: translateY(-1px); box-shadow: var(--shadow); }
+.btnPrimary:hover { background: var(--grad-sky); border-color: transparent; color: white; transform: translateY(-1px); box-shadow: var(--glow); }
 
 .btnDanger { color: var(--danger); border-color: #f0d4d2; background: #fdf3f2; }
 .btnDanger:hover { background: var(--danger); color: white; border-color: var(--danger); }
@@ -105,8 +109,18 @@
   align-items: center;
   gap: 16px;
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
 }
-.statCard:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad-sky);
+  opacity: 0.85;
+}
+.statCard:hover { box-shadow: var(--glow); transform: translateY(-2px); }
 .statIcon {
   width: 44px; height: 44px;
   border-radius: 12px;

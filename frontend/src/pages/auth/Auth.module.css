@@ -7,7 +7,7 @@
 /* ─── Left decorative panel ─── */
 .decorPanel {
   width: 420px;
-  background: linear-gradient(160deg, var(--navy) 0%, #4a6278 100%);
+  background: var(--grad-hero);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,7 +213,7 @@
 .submitBtn {
   width: 100%;
   padding: 12px;
-  background: var(--navy);
+  background: var(--grad-navy);
   color: white;
   border: none;
   border-radius: var(--radius-sm);
@@ -229,9 +229,9 @@
 }
 
 .submitBtn:hover:not(:disabled) {
-  background: var(--steel);
+  background: var(--grad-sky);
   transform: translateY(-1px);
-  box-shadow: var(--shadow);
+  box-shadow: var(--glow);
 }
 
 .submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }

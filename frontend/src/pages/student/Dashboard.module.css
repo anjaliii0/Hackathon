@@ -18,11 +18,16 @@
   font-weight: 600;
   color: var(--navy);
   letter-spacing: -0.02em;
+  background: var(--grad-navy);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .greeting em {
   font-style: italic;
   color: var(--steel);
+  -webkit-text-fill-color: var(--steel);
 }
 
 .subtitle {
@@ -37,7 +42,7 @@
   align-items: center;
   gap: 7px;
   padding: 10px 20px;
-  background: var(--navy);
+  background: var(--grad-navy);
   color: white;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
@@ -47,9 +52,9 @@
 }
 
 .discoverBtn:hover {
-  background: var(--steel);
+  background: var(--grad-sky);
   transform: translateY(-1px);
-  box-shadow: var(--shadow);
+  box-shadow: var(--glow);
 }
 
 /* Stats */
@@ -71,9 +76,15 @@
   transition: var(--transition);
 }
 
+/* Colour-varied stat cards */
+.statCard:nth-child(1) { background: linear-gradient(180deg, #ffffff, #eef5fd); }
+.statCard:nth-child(2) { background: linear-gradient(180deg, #ffffff, #edf7f1); }
+.statCard:nth-child(3) { background: linear-gradient(180deg, #ffffff, #fbf4e3); }
+.statCard:nth-child(4) { background: linear-gradient(180deg, #ffffff, #f3eefb); }
+
 .statCard:hover {
-  box-shadow: var(--shadow);
-  transform: translateY(-1px);
+  box-shadow: var(--glow);
+  transform: translateY(-2px);
 }
 
 .statIcon {

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,300;1,8..60,400&display=swap');
 
 :root {
-  /* Light palette from user images */
+  /* Brand palette (from the supplied swatches) */
   --steel: #6A89A7;
   --powder: #BDDDFC;
   --sky: #88BDF2;
@@ -12,28 +12,50 @@
   --muted-steel: #6D8196;
 
   /* Semantic tokens */
-  --bg: #f8f9fc;
+  --bg: #eaf1f9;                /* tinted canvas (was near-white) */
   --bg-card: #ffffff;
-  --bg-sidebar: #ffffff;
-  --bg-hover: #f0f5fb;
-  --border: #e2eaf2;
-  --border-soft: #eef3f8;
+  --bg-sidebar: #384959;        /* sidebar is now a dark colour block */
+  --bg-hover: #eef5fd;
+  --bg-tint: #f4f8fd;           /* soft panel tint */
+  --bg-cream: #fffdf0;          /* warm highlight surface */
+  --border: #d8e4f1;            /* bluer border */
+  --border-soft: #e7eef7;
   --text-primary: #2c3a47;
-  --text-secondary: #5a6a78;
+  --text-secondary: #54677a;
   --text-muted: #8a9baa;
   --accent: #6A89A7;
   --accent-light: #BDDDFC;
   --accent-dark: #384959;
-  --success: #6aaa8a;
+  --success: #5ba081;
   --warning: #d4a853;
   --danger: #c0706a;
+
+  /* Category accents — used to add variety across the UI */
+  --c-steel: #6A89A7;
+  --c-sky: #88BDF2;
+  --c-navy: #384959;
+  --c-purple: #9b7cc4;
+  --c-teal: #4fa39a;
+  --c-amber: #d4a853;
+  --c-rose: #c0706a;
+  --c-mint: #5ba081;
+
+  /* Gradients */
+  --grad-navy: linear-gradient(135deg, #384959 0%, #6A89A7 100%);
+  --grad-sky: linear-gradient(135deg, #6A89A7 0%, #88BDF2 100%);
+  --grad-powder: linear-gradient(135deg, #88BDF2 0%, #BDDDFC 100%);
+  --grad-cream: linear-gradient(135deg, #BDDDFC 0%, #FFFFE3 100%);
+  --grad-sidebar: linear-gradient(185deg, #3f5266 0%, #344251 55%, #2b3742 100%);
+  --grad-hero: linear-gradient(135deg, #384959 0%, #4a6278 45%, #6A89A7 100%);
 
   --radius: 12px;
   --radius-sm: 8px;
   --radius-lg: 18px;
-  --shadow-sm: 0 1px 4px rgba(56,73,89,0.07);
-  --shadow: 0 4px 16px rgba(56,73,89,0.10);
-  --shadow-lg: 0 10px 40px rgba(56,73,89,0.14);
+  --shadow-sm: 0 1px 4px rgba(56,73,89,0.08);
+  --shadow: 0 6px 22px rgba(56,73,89,0.10);
+  --shadow-lg: 0 18px 50px rgba(56,73,89,0.18);
+  --glow: 0 8px 24px rgba(106,137,167,0.30);          /* steel glow */
+  --glow-sky: 0 8px 26px rgba(136,189,242,0.45);      /* sky glow */
 
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Source Serif 4', 'Times New Roman', serif;
@@ -46,7 +68,13 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
+  /* Soft, multi-stop tinted canvas with gentle colour blooms */
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 600px at 100% -8%, rgba(136,189,242,0.22), transparent 60%),
+    radial-gradient(900px 520px at -8% 108%, rgba(189,221,252,0.28), transparent 55%),
+    radial-gradient(800px 500px at 50% 120%, rgba(255,255,227,0.30), transparent 60%);
+  background-attachment: fixed;
   color: var(--text-primary);
   font-size: 15px;
   line-height: 1.65;
@@ -54,10 +82,13 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--border-soft); }
-::-webkit-scrollbar-thumb { background: var(--silver); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--steel); }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--steel), var(--sky)); border-radius: 4px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--steel); background-clip: padding-box; }
+
+/* Text selection */
+::selection { background: var(--sky); color: var(--navy); }
 
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: var(--font-body); }

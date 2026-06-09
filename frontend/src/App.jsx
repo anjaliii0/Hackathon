@@ -13,6 +13,7 @@ import Leaderboard from './pages/student/Leaderboard';
 import Bookmarks from './pages/student/Bookmarks';
 import Notifications from './pages/student/Notifications';
 import Hackathons from './pages/hackathons/Hackathons';
+import HackathonDetail from './pages/hackathons/HackathonDetail';
 import Teams from './pages/team/Teams';
 import Submission from './pages/submission/Submission';
 import Home from './pages/home/Home';
@@ -51,7 +52,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/hackathons" element={<Hackathons />} />
-            <Route path="/hackathons/:id" element={<Hackathons />} />
+            <Route path="/hackathons/:id" element={<HackathonDetail />} />
             <Route path="/bookmarks" element={<Bookmarks />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/submissions" element={<Submission />} />

@@ -30,15 +30,18 @@
   transition: var(--transition);
 }
 .btn:hover { border-color: var(--steel); color: var(--navy); }
-.btnPrimary { background: var(--navy); color: white; border-color: var(--navy); }
-.btnPrimary:hover { background: var(--steel); border-color: var(--steel); color: white; transform: translateY(-1px); box-shadow: var(--shadow); }
+.btnPrimary { background: var(--grad-navy); color: white; border-color: transparent; }
+.btnPrimary:hover { background: var(--grad-sky); border-color: transparent; color: white; transform: translateY(-1px); box-shadow: var(--glow); }
 
 /* ── Hero ── */
 .hero {
   position: relative; overflow: hidden;
   padding: 80px 40px 70px;
   text-align: center;
-  background: linear-gradient(160deg, #f4f8fd 0%, var(--bg) 55%);
+  background:
+    radial-gradient(700px 340px at 50% -10%, rgba(136,189,242,0.30), transparent 60%),
+    radial-gradient(600px 300px at 100% 120%, rgba(255,255,227,0.50), transparent 60%),
+    linear-gradient(160deg, #eaf3fd 0%, #f4f8fd 55%);
 }
 .heroEyebrow {
   display: inline-flex; align-items: center; gap: 7px;
@@ -63,7 +66,7 @@
   max-width: 800px; margin: 56px auto 0;
 }
 .statItem { text-align: center; }
-.statValue { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1; }
+.statValue { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1; background: var(--grad-sky); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .statLabel { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
 
 /* ── Sections ── */
@@ -79,7 +82,7 @@
 .seeAll { display: inline-flex; align-items: center; gap: 3px; font-size: 0.85rem; color: var(--steel); white-space: nowrap; }
 .seeAll:hover { color: var(--navy); }
 
-.altBg { background: #f4f8fd; max-width: none; }
+.altBg { background: linear-gradient(180deg, #eef5fd 0%, #fffdf0 100%); max-width: none; }
 .altInner { max-width: 1200px; margin: 0 auto; }
 
 /* ── Hackathon card grid ── */

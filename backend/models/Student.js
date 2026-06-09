@@ -15,6 +15,7 @@ const studentSchema = new mongoose.Schema(
     portfolio:{ type: String },
     teamsJoined:       [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
     hackathonsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Application' }],
+    bookmarks:         [{ type: mongoose.Schema.Types.ObjectId, ref: 'Hackathon' }],
   },
   { timestamps: true }
 );

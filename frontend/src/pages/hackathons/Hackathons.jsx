@@ -5,6 +5,7 @@ import {
   MapPin, Calendar, Trophy, Users, ChevronRight, X, Loader2
 } from 'lucide-react';
 import { hackathonService, studentService } from '../../services/services';
+import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 import styles from './Hackathons.module.css';
 
@@ -12,6 +13,7 @@ const MODE_COLORS  = { online: '#6aaa8a', offline: '#c0706a', hybrid: '#d4a853' 
 const STATUS_COLORS = { open: '#6aaa8a', ongoing: '#88BDF2', completed: '#CBCBCB', judging: '#d4a853', pending_approval: '#b0b0b0' };
 
 export default function Hackathons() {
+  const { isStudent } = useAuth();
   const [hackathons,  setHackathons]  = useState([]);
   const [pagination,  setPagination]  = useState({ total: 0, page: 1, pages: 1 });
   const [loading,     setLoading]     = useState(true);
@@ -19,6 +21,14 @@ export default function Hackathons() {
   const [search,      setSearch]      = useState('');
   const [filters,     setFilters]     = useState({ mode: '', status: '', theme: '' });
   const [showFilters, setShowFilters] = useState(false);
+
+  // Load the student's saved hackathons so the bookmark state is real
+  useEffect(() => {
+    if (!isStudent) return;
+    studentService.getBookmarks()
+      .then(res => setBookmarked(new Set((res.data.data || []).map(h => h._id))))
+      .catch(() => {});
+  }, [isStudent]);
 
   const fetchHackathons = useCallback(async (overrides = {}) => {
     setLoading(true);
@@ -48,12 +58,24 @@ export default function Hackathons() {
   useEffect(() => { fetchHackathons(); }, [fetchHackathons]);
 
   const toggleBookmark = async (id) => {
+    // optimistic update
     setBookmarked(prev => {
       const next = new Set(prev);
-      if (next.has(id)) { next.delete(id); toast.success('Removed from saved'); }
-      else              { next.add(id);    toast.success('Hackathon saved!'); }
+      next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
+    try {
+      const res = await studentService.toggleBookmark(id);
+      toast.success(res.data.message);
+    } catch (err) {
+      // revert on failure
+      setBookmarked(prev => {
+        const next = new Set(prev);
+        next.has(id) ? next.delete(id) : next.add(id);
+        return next;
+      });
+      toast.error(err.response?.data?.message || 'Failed to save');
+    }
   };
 
   const clearFilters = () => {
@@ -158,11 +180,13 @@ export default function Hackathons() {
                       {h.status?.replace('_', ' ')}
                     </span>
                   </div>
-                  <button
-                    className={`${styles.bookmarkBtn} ${bookmarked.has(h._id) ? styles.bookmarked : ''}`}
-                    onClick={() => toggleBookmark(h._id)}>
-                    {bookmarked.has(h._id) ? <BookmarkCheck size={17} /> : <Bookmark size={17} />}
-                  </button>
+                  {isStudent && (
+                    <button
+                      className={`${styles.bookmarkBtn} ${bookmarked.has(h._id) ? styles.bookmarked : ''}`}
+                      onClick={() => toggleBookmark(h._id)}>
+                      {bookmarked.has(h._id) ? <BookmarkCheck size={17} /> : <Bookmark size={17} />}
+                    </button>
+                  )}
                 </div>
 
                 {h.banner && <img src={h.banner} alt={h.title} className={styles.cardBanner} />}

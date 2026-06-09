@@ -137,8 +137,20 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  overflow: hidden;
 }
-.card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad-sky);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.card:hover { box-shadow: var(--glow); transform: translateY(-3px); border-color: var(--steel); }
+.card:hover::before { opacity: 1; }
 
 .cardTop { display: flex; align-items: center; justify-content: space-between; }
 .cardTags { display: flex; gap: 8px; align-items: center; }
@@ -198,7 +210,7 @@
   font-weight: 500;
   transition: var(--transition);
 }
-.viewBtn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+.viewBtn:hover { background: var(--grad-navy); color: white; border-color: transparent; }
 
 .empty {
   grid-column: 1 / -1;
